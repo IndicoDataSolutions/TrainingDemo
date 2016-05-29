@@ -1,0 +1,49 @@
+{% extends 'includes.html' %}
+{% block extra_head %}
+    <title>Training Collections Locally</title>
+{% endblock %}
+{% block body %}
+<div class="container">
+	<div class="panel panel-default margin-top-lg">
+		<div class="panel-heading">
+			<div class="panel-title">
+				<h4>
+					My Collections
+					<a href="/new" class="btn btn-success btn-sm pull-right">New Collection</a>
+				</h4>
+			</div>
+		</div>
+    	<div class="panel-body">
+	    	<table class="table table-hover">
+	    		<thead class="thead-inverse">
+	    			<tr>
+	    				<th>Collection Name</th>
+	    				<th>Model Type</th>
+	    				<th>Data Type</th>
+	    				<th>Number of Examples</th>
+	    				<th>Status</th>
+	    				<!-- This is for a VERY subtle visual effect. Don't delete. -->
+	    				<th> </th>
+	    			</tr>
+	    		</thead>
+	    		<tbody>
+			    	{% for name, data in colls.items() %}
+			        	<tr>
+			        		<td><a href="/collection/{{ data.input_type }}/{{ name }}">{{ name }}</a></td>
+			        		<td>{{ data.model_type }}</td>
+			        		<td>{{ data.input_type }}</td>
+			        		<td>{{ data.number_of_examples }}</td>
+			        		<td>{{ data.status }}</td>
+			        		<td>
+			        			<a href="/delete/{{ name }}">
+			        				<i class="ion ion-trash-a"></i>
+			        			</a>
+			        		</td>
+			        	</tr>
+			        {% endfor %}
+			    </tbody>
+		    </table>
+		</div>
+	</div>
+</div>
+{% endblock %}

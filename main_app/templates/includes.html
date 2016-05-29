@@ -1,0 +1,19 @@
+<html>
+	<head>
+		<script type="text/javascript" src="/media/js/vendor/bootstrap.min.js"></script>
+		<script type="text/javascript" src="/media/js/vendor/jquery-1.11.3.js"></script>
+		<link href="/media/css/vendor/bootstrap.min.css" rel="stylesheet" type="text/css">
+		<link href="/media/css/vendor/ionicons.min.css" rel="stylesheet" type="text/css">
+		{% block extra_head %}{% endblock %}
+	<head>
+	<body>
+		<div class="navbar navbar-inverse navbar-static-top">
+			<div class="container">
+				<div class="navbar-header">
+					<span class="navbar-brand">TrainingUI</span>
+				</div>
+			</div>
+		</div>
+		{% block body %}{% endblock %}
+	</body>
+</html>

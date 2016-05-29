@@ -1,0 +1,41 @@
+{% extends 'includes.html' %}
+{% block extra_head %}
+<title>{{ collection.collection }}</title>
+{% endblock %}
+{% block body %}
+<div class="container">
+	<div class="row">
+		<div class="container col-md-4">
+			<div class="panel panel-default margin-top-lg">
+				<div class="panel-heading">
+					<div class="panel-title">
+						<h4>
+							{{ collection.collection }}
+							<a href="/train/{{ collection.collection }}" class="btn btn-success btn-sm pull-right">Train</a>
+						</h4>
+					</div>
+				</div>
+		    	<div class="panel-body">
+			    	<table class="table">
+			    		<thead class="thead-inverse">
+			    			<tr>
+			    				<th>Labels</th>
+			    			</tr>
+			    		</thead>
+			    		<tbody>
+					    	{% for label in labels %}
+					        	<tr>
+					        		<td>{{ label }}</td>
+					        	</tr>
+					        {% endfor %}
+					    </tbody>
+				    </table>
+				</div>
+			</div>
+		</div>
+		<div class="container col-md-8">
+			Here there be dragons
+		</div>
+	</div>
+</div>
+{% endblock %}
