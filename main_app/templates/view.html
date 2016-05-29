@@ -34,7 +34,28 @@
 			</div>
 		</div>
 		<div class="container col-md-8">
-			Here there be dragons
+			<div class="panel panel-default margin-top-lg">
+				<div class="panel-heading">
+					<form name="searchBar" method="POST" action="">
+						<fieldset class="form-group">
+							<input type="text" class="form-control" name="query" id="searchBar" placeholder="{{ previous_search if previous_search else 'Search...'}}">
+						</fieldset>
+					</form>
+				</div>
+				{% if search_results %}
+					<div class="panel-body pre-scrollable text-justify">
+						{% for result in search_results %}
+							<img src="{{ result.preview }}" data-source="{{ result.base }}" class="img-thumbnail">
+						{% endfor %}
+					</div>
+					<div class="panel-footer clearfix">
+						<form class="form-inline pull-right">
+							<input type="text" class="form-control" id="DataLabel" placeholder="label">
+							<button type="submit" class="btn btn-success">Add Data</button>
+						</form>
+					</div>
+				{% endif %}
+			</div>
 		</div>
 	</div>
 </div>
