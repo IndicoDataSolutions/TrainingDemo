@@ -32,7 +32,12 @@ class ViewCollectionHandler(BaseHandler):
 
 	def get(self, data_type, collection_name):
 		labels, coll = self._details(data_type, collection_name)
-		return self.render("view.html", labels=labels, collection=coll)
+		return self.render(
+			"view.html",
+			labels=labels,
+			collection=coll,
+			indico_api_key=options.indico_key,
+		)
 
 	def post(self, data_type, collection_name):
 		labels, coll = self._details(data_type, collection_name)
@@ -51,12 +56,14 @@ class ViewCollectionHandler(BaseHandler):
 			labels = labels,
 			collection = coll,
 			search_results = search_results,
-			previous_search = search
+			previous_search = search,
+			indico_api_key=options.indico_key,
 		)
 
-# class CollectionSearchHandler(BaseHandler):
-# 	def 
-
 class TrainCollectionHandler(BaseHandler):
-	def get(self):
-		self.redirect("/")
+	def get(self, collection_name):
+		collection = Collection(collection_name, api_key=options.indico_key)
+		collection.train()
+		collection.wait()
+		origin_url = self.request.headers.get('Referer')
+		self.redirect('/' + '/'.join(origin_url.split('/')[3:]))

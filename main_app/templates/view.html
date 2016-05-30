@@ -1,5 +1,7 @@
 {% extends 'includes.html' %}
 {% block extra_head %}
+<script type="text/javascript" src="/media/js/search.js"></script>
+<link href="/media/css/search.css" rel="stylesheet" type="text/css">
 <title>{{ collection.collection }}</title>
 {% endblock %}
 {% block body %}
@@ -45,14 +47,15 @@
 				{% if search_results %}
 					<div class="panel-body pre-scrollable text-justify">
 						{% for result in search_results %}
-							<img src="{{ result.preview }}" data-source="{{ result.base }}" class="img-thumbnail">
+							<img src="{{ result.preview }}" data-source="{{ result.base }}" class="img-thumbnail search-result">
 						{% endfor %}
 					</div>
 					<div class="panel-footer clearfix">
-						<form class="form-inline pull-right">
-							<input type="text" class="form-control" id="DataLabel" placeholder="label">
-							<button type="submit" class="btn btn-success">Add Data</button>
-						</form>
+						<div class="form-inline pull-right">
+							<input type="hidden" id="apiKey" value="{{ indico_api_key }}">
+							<input type="text" class="form-control" id="dataLabel" placeholder="label">
+							<a class="btn btn-success" id="addData">Add Data</a>
+						</div>
 					</div>
 				{% endif %}
 			</div>
