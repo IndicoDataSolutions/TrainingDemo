@@ -1,0 +1,36 @@
+{% extends 'includes.html' %}
+{% block extra_head %}
+	<title>New Collection</title>
+{% endblock %}
+
+{% block body %}
+	<div class="container col-md-6 col-md-offset-3">
+		<div class="panel panel-default margin-top-lg">
+			<div class="panel-heading">
+				<h4>New Collection</h4>
+			</div>
+			<div class="panel-body">
+				<form method="POST" action="">
+					<div class="form-inline text-justify">
+						<input type="text" class="form-control" name="newName" placeholder="Collection Name...">
+						<div class="radio">
+							<label>
+	    						<input type="radio" name="dataType" value="text">
+	    							Text
+	  						</label>
+						</div>
+						<div class="radio">
+							<label>
+	    						<input type="radio" name="dataType" value="image">
+	    							Image
+	  						</label>
+						</div>
+					</div>
+					<button type="submit" class="btn btn-primary pull-right">
+						Make Collection
+					</button>
+				</form>
+			</div>
+		</div>
+	</div>
+{% endblock %}

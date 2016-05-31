@@ -3,6 +3,7 @@ import json
 import numpy as np
 import requests
 from tornado.options import options
+from indicoio import IndicoError
 from indicoio.custom import Collection
 
 from handlers.base import BaseHandler
@@ -24,10 +25,16 @@ class ViewCollectionHandler(BaseHandler):
 		"""
 		coll = Collection(collection_name)
 		labels = []
-		if data_type == "text":
-			labels = coll.predict("a").keys()
-		elif data_type == "image":
-			labels = coll.predict(np.array([[0]])).keys()
+		try:
+			if data_type == "text":
+				labels = coll.predict("a").keys()
+			elif data_type == "image":
+				labels = coll.predict(np.array([[0]])).keys()
+		except IndicoError as e:
+			if e.message.endswith("does not exist.") or e.message.startswith("No trained model exists."):
+				pass
+			else:
+				raise ValueError(e.message)
 		return labels, coll
 
 	def get(self, data_type, collection_name):
@@ -67,3 +74,12 @@ class TrainCollectionHandler(BaseHandler):
 		collection.wait()
 		origin_url = self.request.headers.get('Referer')
 		self.redirect('/' + '/'.join(origin_url.split('/')[3:]))
+
+class NewCollectionHandler(BaseHandler):
+	def get(self):
+		self.render("new.html")
+
+	def post(self):
+		new_collection_name = self.get_argument('newName')
+		data_type = self.get_argument('dataType')
+		self.redirect('/collection/%s/%s' % (data_type, new_collection_name))
